@@ -1,0 +1,23 @@
+
+table
+{
+    width:100%
+}
+
+table,td,th
+{
+border: solid 1px black;
+border-collapse: collapse;
+}
+
+td,th{
+padding:10px;
+}
+th{
+    background-color: coral;
+    font-style: italic;
+}
+tr{
+    background-color: lightskyblue;
+}
+
