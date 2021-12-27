@@ -16,7 +16,7 @@ class Entity_table(db.Model):
     entity_name = db.Column(db.String(200))
     entity_type = db.Column(db.String(50))
     entity_count = db.Column(db.Integer)
-    doc_id = db.Column(db.Integer,db.ForeignKey('doc_table.id'))
+    doc_id = db.Column(db.BigInteger,db.ForeignKey('doc_table.id'))
 
 
 
