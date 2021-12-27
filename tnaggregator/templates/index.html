@@ -4,9 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech News Aggregator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <title>Tech News Aggregator</title>
 </head>
 <body>
     <h1>Tech News Aggregator</h1>
+   
+    
+</div>
+<div class="documents-div">
+    
+
+    <table>
+        <tr>
+            <th>
+                Latest HeadLines
+            </th>
+            <th>
+                Summary
+            </th>
+            <th>
+                Topics
+            </th>
+            <th>
+                Link to Article
+            </th>
+        </tr>
+        <tr>
+           
+            <td>{{news[0]}}</td>
+            <td><a>Summary</a></td>
+            <td><a>Entities</a></td>
+            <td><a>Read more</a></td>
+            </tr>
+
+            
+    </table>
+</div>
+    
 </body>
 </html>
