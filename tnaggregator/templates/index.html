@@ -34,7 +34,7 @@
             {% for news in news_list %}
             <td>{{news[0]}}</td>
             <td><a href = {{url_for('views.summary', doc_id = news[3])}}>Summary</a></td>
-            <td>Entities</a></td>
+            <td><a href = {{url_for('views.entities', doc_id = news[3])}}>Entities</a></td>
             <td><a href ={{news[1]}} target="_blank">Read more</a></td>
             </tr>
             {% endfor %}

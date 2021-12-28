@@ -22,10 +22,12 @@
             </th>
         </tr>
         <tr>
-            <td>entity[1] </td>
-            <td> entity[2] </td>
-            <td> entity[3] </td>
+            {% for entity in entities %}
+            <td>{{ entity[0] }}</td>
+            <td>{{ entity[1] }}</td>
+            <td>{{ entity[2] }}</td>
             </tr>
+            {% endfor %}
 
             
     </table>

@@ -12,3 +12,10 @@ def summary():
     doc_id= request.args.get('doc_id')
     summary = tn.find_summary(doc_id)
     return render_template('summary.html',summary = summary)
+
+
+@views.route('/entities',methods = ['POST','GET'])
+def entities():
+    doc_id= request.args.get('doc_id')
+    entities = tn.find_entities(doc_id)
+    return render_template('entity.html',entities = entities)
