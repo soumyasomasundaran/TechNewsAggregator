@@ -31,5 +31,5 @@ def insert_doc_table():
 
 
 
-#scrape()
-#insert_doc_table()
+scrape()
+insert_doc_table()
