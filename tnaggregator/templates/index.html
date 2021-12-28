@@ -23,18 +23,21 @@
             <th>
                 Summary
             </th>
-            
+            <th>
+                Find topics
+            </th>
             <th>
                 Link to Article
             </th>
         </tr>
         <tr>
-           
-            <td> Title</td>
-            <td><a>Summary</a></td>
-            <td><a>Read more</a></td>
+            {% for news in news_list %}
+            <td>{{news[0]}}</td>
+            <td>Summary</a></td>
+            <td>Entities</a></td>
+            <td><a href ={{news[1]}} target="_blank">Read more</a></td>
             </tr>
-
+            {% endfor %}
             
     </table>
 </div>

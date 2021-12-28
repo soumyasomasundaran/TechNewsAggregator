@@ -17,10 +17,14 @@ def insert_doc_table():
         db.session.execute(doc_table.__table__.insert().prefix_with('IGNORE').values(document))
         db.session.commit()
         
-    print("Doc Added")
+
+def fetch_news():
+    result =  doc_table.query.all()
+    news_list = [[row.doc_title,row.doc_link,row.doc_date] for row in result]
+    print("This",news_list)
+    return news_list
 
 
 
-
-scrape()
-insert_doc_table()
+#scrape()
+#insert_doc_table()
