@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://root:Minimum$15@localhost/technews'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://ba00038f27c785:bbe2d1da@eu-cdbr-west-02.cleardb.net/heroku_c48b175565e2cfa'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = "tHISiSAsUPERKEY"
 
