@@ -1,7 +1,5 @@
 from logging import debug
-from tnaggregator import create_app
-
-app = create_app()
+from tnaggregator import app
 
 if __name__ == '__main__':
     app.run(debug = True)

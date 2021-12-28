@@ -31,9 +31,9 @@ def do_scrape(url):
     items = soup.find_all('item')
     
     for item in items:
-        news_dictionary['title'] = item.title.text
-        news_dictionary['link'] = item.link.text
-        news_dictionary['date'] = format_date(item.pubDate.text)
+        news_dictionary['doc_title'] = item.title.text
+        news_dictionary['doc_link'] = item.link.text
+        news_dictionary['doc_date'] = format_date(item.pubDate.text)
         news_list.append(news_dictionary.copy())
 
 
