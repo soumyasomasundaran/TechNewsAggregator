@@ -1,9 +1,26 @@
+from requests.sessions import session
 from tnaggregator.models import doc_table
 from . import scrape_news as sp
 from . import db
-#import language_processing as lp
+from  . import language_processing as lp
 
 DOCUMENT_LIST = []
+
+
+
+def content_from_id(doc_id):
+    doc = db.session.query(doc_table).filter_by(id=doc_id).first()
+    doc_link = doc.doc_link
+    content = sp.get_content(doc_link)
+    return content
+
+
+def find_summary(doc_id):
+    content = content_from_id(doc_id)
+    summary  = lp.summarize(content)
+    return summary
+
+
 
 
 def scrape():
@@ -20,8 +37,7 @@ def insert_doc_table():
 
 def fetch_news():
     result =  doc_table.query.all()
-    news_list = [[row.doc_title,row.doc_link,row.doc_date] for row in result]
-    print("This",news_list)
+    news_list = [[row.doc_title,row.doc_link,row.doc_date,row.id] for row in result]
     return news_list
 
 
