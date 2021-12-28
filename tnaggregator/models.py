@@ -7,8 +7,9 @@ class Doc_table(db.Model):
     id = db.Column(db.BigInteger,primary_key=True)
     doc_title  = db.Column(db.String(200))
     doc_link = db.Column(db.String(200),unique = True)
-    doc_date = db.Column(db.Date)
+    doc_date = db.Column(db.String(10))
 
+   
     
 
   
@@ -18,7 +19,6 @@ class Entity_table(db.Model):
     entity_type = db.Column(db.String(50))
     entity_count = db.Column(db.Integer)
     doc_id = db.Column(db.BigInteger,db.ForeignKey('doc_table.id'))
-
 
 
 

@@ -3,6 +3,7 @@ from . import scrape_news as sp
 from . import db
 from .models import Doc_table
 from sqlalchemy import exc
+from sqlalchemy import cast, Date
 #import language_processing as lp
 
 DOCUMENT_LIST = []
@@ -22,10 +23,8 @@ def insert_doc_table():
                 .insert()
                 .prefix_with('IGNORE')
                 .values(document))
-        try:
-            db.session.commit()
-        except exc.IntegrityError:
-            continue
+        db.session.commit()
+                 
     print("Doc Added")
 
 
