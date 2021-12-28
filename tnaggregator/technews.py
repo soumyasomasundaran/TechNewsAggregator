@@ -14,8 +14,7 @@ def scrape():
    DOCUMENT_LIST = sp.scrape_rss(RSS_FEED_LIST)
 
 
-def insert_doc_table():
-    
+def insert_doc_table():    
     for document in DOCUMENT_LIST:
         #new_doc = Doc_table(doc_title = document['title'],doc_link = document['link'],doc_date = document['date'])
         #db.session.add(new_doc)
@@ -32,5 +31,5 @@ def insert_doc_table():
 
 
 
-scrape()
-insert_doc_table()
+#scrape()
+#insert_doc_table()
