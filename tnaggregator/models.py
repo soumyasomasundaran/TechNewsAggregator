@@ -6,13 +6,14 @@ class doc_table(db.Model):
     id = db.Column(db.BigInteger,primary_key=True)
     doc_title  = db.Column(db.String(200))
     doc_link = db.Column(db.String(200),unique = True)
-    doc_date = db.Column(db.String(10))
+    doc_date = db.Column(db.DateTime)
+    __table_args__ = (db.UniqueConstraint(doc_title, doc_link, name='uix_1'),)
+
 
     def __init__(self, doc_title, doc_link, doc_date):
         self.doc_title = doc_title
         self.doc_link = doc_link
         self.doc_date = doc_date
-
     def __repr__(self):
         return '<id {}>'.format(self.id)
     

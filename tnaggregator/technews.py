@@ -1,12 +1,14 @@
 from requests.sessions import session
 from tnaggregator.models import doc_table, entity_table
-from . import scrape_news as sp
+from . import scrape_today as sp
 from . import db
 from  . import language_processing as lp
+from sqlalchemy import func
+from datetime import datetime, time, timedelta
+
 
 DOCUMENT_LIST = []
-
-
+RSS_FEED_LIST = ['https://techcrunch.com/feed/','http://feeds.feedburner.com/ProgrammableWeb','https://mashable.com/feeds/rss/tech']
 
 def content_from_id(doc_id):
     doc = db.session.query(doc_table).filter_by(id=doc_id).first()
@@ -25,14 +27,17 @@ def find_entities(doc_id):
     entities = [[row.entity_name,row.entity_type,row.entity_count] for row in entity_rows]
     return entities
 
+def yesterday_midnight():
+    midnight = datetime.combine(datetime.today(), time.min)
+    yesterday_midnight = midnight - timedelta(days=1)
+    return yesterday_midnight
 
 
 
-def scrape():
-   global DOCUMENT_LIST
-   RSS_FEED_LIST = ['https://techcrunch.com/feed/','http://feeds.feedburner.com/ProgrammableWeb','https://mashable.com/feeds/rss/tech']
-   DOCUMENT_LIST = sp.scrape_rss(RSS_FEED_LIST)
-
+def scrape(last_inserted_time):
+   global DOCUMENT_LIST   
+   DOCUMENT_LIST = sp.scrape_rss(RSS_FEED_LIST,last_inserted_time)
+   
 
 def insert_doc_table():    
     for document in DOCUMENT_LIST:
@@ -50,7 +55,6 @@ def extract_entities():
     for rows in result:
         entity_list = extract_fromid(rows.id)
         insert_entity(entity_list,rows.id)
-       # print('*'*20)
 
 def insert_entity(entity_list,doc_id):
     for entity_tuple in entity_list:
@@ -63,6 +67,16 @@ def extract_fromid(id):
     entities = lp.extract_entities(content)
     return entities
 
-#scrape()
-#insert_doc_table()
-#extract_entities()
+def check_last_insert():
+    last_inserted_time = db.session.query(func.max(doc_table.doc_date)).first()[0]
+    db.session.commit()
+    if last_inserted_time is None:
+        last_inserted_time = yesterday_midnight()
+        print("First Insert now is ", last_inserted_time)
+    return last_inserted_time
+
+last_inserted_time = check_last_insert()
+scrape(last_inserted_time)
+if DOCUMENT_LIST:
+    insert_doc_table()
+    extract_entities()
