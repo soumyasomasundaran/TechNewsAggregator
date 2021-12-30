@@ -43,6 +43,7 @@ def insert_doc_table():
     for document in DOCUMENT_LIST:
         db.session.execute(doc_table.__table__.insert().prefix_with('IGNORE').values(document))
     db.session.commit()
+    return True
         
 
 def fetch_news():
@@ -51,10 +52,10 @@ def fetch_news():
     return news_list
 
 def extract_entities():
-    result =  doc_table.query.all()
-    for rows in result:
-        entity_list = extract_fromid(rows.id)
-        insert_entity(entity_list,rows.id)
+    for document in DOCUMENT_LIST:
+        result = db.session.query(doc_table).filter_by(doc_link=document['doc_link']).first()
+        entity_list = extract_from_id(result.id)
+        insert_entity(entity_list,result.id)
 
 def insert_entity(entity_list,doc_id):
     for entity_tuple in entity_list:
@@ -62,7 +63,7 @@ def insert_entity(entity_list,doc_id):
         db.session.execute(entity_table.__table__.insert().prefix_with('IGNORE').values(entity_dictionary))
     db.session.commit()
 
-def extract_fromid(id):
+def extract_from_id(id):
     content = content_from_id(id)
     entities = lp.extract_entities(content)
     return entities
@@ -79,4 +80,5 @@ last_inserted_time = check_last_insert()
 scrape(last_inserted_time)
 if DOCUMENT_LIST:
     insert_doc_table()
+    print("HI")
     extract_entities()
