@@ -1,8 +1,7 @@
-from requests.sessions import session
 from tnaggregator.models import doc_table, entity_table
 from . import scrape_today as sp
 from . import db
-from  . import language_processing as lp
+from . import language_processing as lp
 from sqlalchemy import func
 from datetime import datetime, time, timedelta
 
@@ -77,8 +76,8 @@ def check_last_insert():
     return last_inserted_time
 
 last_inserted_time = check_last_insert()
+print(last_inserted_time)
 scrape(last_inserted_time)
 if DOCUMENT_LIST:
     insert_doc_table()
-    print("HI")
     extract_entities()
