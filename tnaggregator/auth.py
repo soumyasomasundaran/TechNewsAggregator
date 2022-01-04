@@ -36,7 +36,7 @@ def check_valid(email_exists,user_exists,email,password1,password2,username):
 
 auth = Blueprint('auth',__name__)
 
-def create_user(is_admin = False):
+def create_user():
     username = request.form.get("username")
     email = request.form.get("email")
     password1 = request.form.get("password1")
@@ -45,7 +45,7 @@ def create_user(is_admin = False):
     user_exists = user_table.query.filter_by(username = username).first()
 
     if check_valid(email_exists,user_exists,email,password1,password2,username):    
-        new_user = user_table(username = username, email = email, password = generate_password_hash(password1, method = "sha256"),is_admin = is_admin)
+        new_user = user_table(username = username, email = email, password = generate_password_hash(password1, method = "sha256"))
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user,remember = True)
@@ -54,12 +54,6 @@ def create_user(is_admin = False):
     else:
         return render_template("signup.html",user = current_user)
 
-
-@auth.route('/createadmin', methods = ["GET","POST"])
-def createadmin():
-    if request.method == "POST":      
-        return create_user(is_admin = True)
-    return render_template('admin_signup.html',user = current_user)
 
 
 

@@ -21,6 +21,14 @@ class doc_table(db.Model):
 
   
 class entity_table(db.Model):
+    def __init__(self,entity_id,entity_name,entity_type,entity_count):
+        self.entity_id = entity_id
+        self.entity_name = entity_name
+        self.entity_type = entity_type
+        self.entity_count = entity_count
+
+
+
     entity_id = db.Column(db.BigInteger,primary_key=True)
     entity_name = db.Column(db.String(200))
     entity_type = db.Column(db.String(50))
@@ -34,11 +42,11 @@ class entity_table(db.Model):
 
 
 class user_table(db.Model,UserMixin):
-    def __init__(self,username,email,password,is_admin):
+    def __init__(self,username,email,password):
         self.username = username
         self.email = email
         self.password = password
-        self.is_admin = is_admin
+        
         
 
     def __repr__(self):
