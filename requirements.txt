@@ -1,51 +1,67 @@
-beautifulsoup4==4.10.0
-black==21.12b0
-blis==0.7.5
-catalogue==2.0.6
-certifi==2021.10.8
-charset-normalizer==2.0.9
-click==8.0.3
-cymem==2.0.6
-en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.2.0/en_core_web_sm-3.2.0-py3-none-any.whl
-Flask==2.0.2
-Flask-SQLAlchemy==2.5.1
-greenlet==1.1.2
-gunicorn==20.1.0
-idna==3.3
-itsdangerous==2.0.1
-Jinja2==3.0.3
-langcodes==3.3.0
-lxml==4.7.1
-MarkupSafe==2.0.1
-murmurhash==1.0.6
-mypy-extensions==0.4.3
-mysql-connector-python==8.0.27
-numpy==1.21.5
-packaging==21.3
-pathspec==0.9.0
-pathy==0.6.1
-platformdirs==2.4.1
-preshed==3.0.6
-protobuf==3.19.1
-pydantic==1.8.2
-PyMySQL==1.0.2
-pyparsing==3.0.6
-python-dateutil==2.8.2
-pytz==2021.3
-requests==2.26.0
-six==1.16.0
-smart-open==5.2.1
-soupsieve==2.3.1
-spacy==3.2.1
-spacy-legacy==3.0.8
-spacy-loggers==1.0.1
-SQLAlchemy==1.4.29
-srsly==2.4.2
-thinc==8.0.13
-tomli==1.2.3
-tqdm==4.62.3
-typer==0.4.0
-typing_extensions==4.0.1
-urllib3==1.26.7
-wasabi==0.9.0
-Werkzeug==2.0.2
+
+Usage:   
+  pip <command> [options]
+
+Commands:
+  install                     Install packages.
+  download                    Download packages.
+  uninstall                   Uninstall packages.
+  freeze                      Output installed packages in requirements format.
+  list                        List installed packages.
+  show                        Show information about installed packages.
+  check                       Verify installed packages have compatible dependencies.
+  config                      Manage local and global configuration.
+  search                      Search PyPI for packages.
+  cache                       Inspect and manage pip's wheel cache.
+  index                       Inspect information available from package indexes.
+  wheel                       Build wheels from your requirements.
+  hash                        Compute hashes of package archives.
+  completion                  A helper command used for command completion.
+  debug                       Show information useful for debugging.
+  help                        Show help for commands.
+
+General Options:
+  -h, --help                  Show help.
+  --debug                     Let unhandled exceptions propagate outside the
+                              main subroutine, instead of logging them to
+                              stderr.
+  --isolated                  Run pip in an isolated mode, ignoring
+                              environment variables and user configuration.
+  -v, --verbose               Give more output. Option is additive, and can be
+                              used up to 3 times.
+  -V, --version               Show version and exit.
+  -q, --quiet                 Give less output. Option is additive, and can be
+                              used up to 3 times (corresponding to WARNING,
+                              ERROR, and CRITICAL logging levels).
+  --log <path>                Path to a verbose appending log.
+  --no-input                  Disable prompting for input.
+  --proxy <proxy>             Specify a proxy in the form
+                              [user:passwd@]proxy.server:port.
+  --retries <retries>         Maximum number of retries each connection should
+                              attempt (default 5 times).
+  --timeout <sec>             Set the socket timeout (default 15 seconds).
+  --exists-action <action>    Default action when a path already exists:
+                              (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
+  --trusted-host <hostname>   Mark this host or host:port pair as trusted,
+                              even though it does not have valid or any HTTPS.
+  --cert <path>               Path to PEM-encoded CA certificate bundle. If
+                              provided, overrides the default. See 'SSL
+                              Certificate Verification' in pip documentation
+                              for more information.
+  --client-cert <path>        Path to SSL client certificate, a single file
+                              containing the private key and the certificate
+                              in PEM format.
+  --cache-dir <dir>           Store the cache data in <dir>.
+  --no-cache-dir              Disable the cache.
+  --disable-pip-version-check
+                              Don't periodically check PyPI to determine
+                              whether a new version of pip is available for
+                              download. Implied with --no-index.
+  --no-color                  Suppress colored output.
+  --no-python-version-warning
+                              Silence deprecation warnings for upcoming
+                              unsupported Pythons.
+  --use-feature <feature>     Enable new functionality, that may be backward
+                              incompatible.
+  --use-deprecated <feature>  Enable deprecated functionality, that will be
+                              removed in the future.
