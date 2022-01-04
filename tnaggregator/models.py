@@ -1,5 +1,6 @@
-from enum import unique
+from os import EX_TEMPFAIL
 from . import db
+from flask_login import UserMixin
 
 class doc_table(db.Model):
     __tabel__ ='doc_table'
@@ -26,12 +27,39 @@ class entity_table(db.Model):
     entity_count = db.Column(db.Integer)
     doc_id = db.Column(db.BigInteger,db.ForeignKey('doc_table.id'))
 
+    def __repr__(self):
+        return '<id {}>'.format(self.entity_id)
+    
 
 
 
+class user_table(db.Model,UserMixin):
+    def __init__(self,username,email,password,is_admin):
+        self.username = username
+        self.email = email
+        self.password = password
+        self.is_admin = is_admin
+        
+
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
+    
+    id = db.Column(db.Integer, primary_key = True)
+    username= db.Column(db.String(150))
+    email = db.Column(db.String(150))
+    password = db.Column(db.String(150) )
+    is_admin = db.Column(db.Boolean, default = False)
+    __table_args__ = (db.UniqueConstraint(username, email, name='uix_2'),)
 
     
 
 
+class rss_table(db.Model):
+    def __init__(self,rss_id,rss):
+        self.rss_id = rss_id
+        self.rss = rss
+    
+    rss_id = db.Column(db.Integer, primary_key = True)
+    rss = db.Column(db.String(200),unique = True)
 
 

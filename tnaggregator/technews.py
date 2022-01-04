@@ -1,13 +1,16 @@
-from tnaggregator.models import doc_table, entity_table
+from tnaggregator.models import doc_table, entity_table, rss_table
 from . import scrape_today as sp
 from . import db
 from . import language_processing as lp
 from sqlalchemy import func
 from datetime import datetime, time, timedelta
 
-
 DOCUMENT_LIST = []
-RSS_FEED_LIST = ['https://techcrunch.com/feed/','http://feeds.feedburner.com/ProgrammableWeb','https://mashable.com/feeds/rss/tech']
+
+def fetch_rss():
+    result  = db.session.query(rss_table)
+    return [row.rss for row in result]
+
 
 def content_from_id(doc_id):
     doc = db.session.query(doc_table).filter_by(id=doc_id).first()
@@ -32,10 +35,10 @@ def yesterday_midnight():
     return yesterday_midnight
 
 
-
 def scrape(last_inserted_time):
    global DOCUMENT_LIST   
-   DOCUMENT_LIST = sp.scrape_rss(RSS_FEED_LIST,last_inserted_time)
+   rss_list = fetch_rss()
+   DOCUMENT_LIST = sp.scrape_rss(rss_list,last_inserted_time)
    
 
 def insert_doc_table():    
@@ -72,12 +75,11 @@ def check_last_insert():
     db.session.commit()
     if last_inserted_time is None:
         last_inserted_time = yesterday_midnight()
-        print("First Insert now is ", last_inserted_time)
     return last_inserted_time
 
 last_inserted_time = check_last_insert()
-print(last_inserted_time)
 scrape(last_inserted_time)
+
 if DOCUMENT_LIST:
     insert_doc_table()
     extract_entities()

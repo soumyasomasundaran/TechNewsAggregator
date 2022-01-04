@@ -29,7 +29,7 @@ def normalize_frequent_words(frequent_words,keywords):
     max_frequency = Counter(keywords).most_common(1)[0][1]
     for word in frequent_words.keys():
         frequent_words[word]=frequent_words[word]/max_frequency
-    frequent_words.most_common(5)
+    return frequent_words.most_common(5)
 
 def weighing_sentences(frequent_words,doc):
     sent_strength= {}
@@ -49,11 +49,10 @@ def token_to_string(summary_list):
 
 def summarize(content):
     doc = create_doc(content)
-    length = len(list(doc.sents))
     keywords = filter_keywords(doc)
     frequent_words = find_frequent_words(keywords)
-    frquent_words_ = normalize_frequent_words(frequent_words,keywords)
-    weighed_sentences = weighing_sentences(frequent_words,doc)
+    frequent_words_normalized = normalize_frequent_words(frequent_words,keywords)
+    weighed_sentences = weighing_sentences(dict(frequent_words_normalized),doc)
     summary_list = nlargest(3,weighed_sentences,key = weighed_sentences.get)
     summary  = token_to_string(summary_list)
     return  summary
