@@ -11,6 +11,5 @@ class administrator(ModelView):
             return current_user.is_authenticated
         else:
             return abort(404)    
-   # def not_auth(self):
-    #    return " You are not authorized to use admin dashboard"
+   
         
