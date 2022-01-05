@@ -30,6 +30,8 @@ mail = Mail(app)
 
 from .admin_login import administrator
 from .models import doc_table,entity_table,user_table,rss_table
+db.create_all() 
+db.session.commit()
 
 admin.add_view(administrator(user_table, db.session))
 admin.add_view(administrator(rss_table, db.session))
@@ -43,8 +45,7 @@ app.register_blueprint(auth,url_prefix= '/')
 
 
 
-db.create_all() 
-db.session.commit()
+
 
 login_manager.login_view = "auth.login"
 @login_manager.user_loader

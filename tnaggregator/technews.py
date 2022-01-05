@@ -11,6 +11,9 @@ def fetch_rss():
     result  = db.session.query(rss_table)
     return [row.rss for row in result]
 
+def fetch_summary(doc_id):
+     result = db.session.query(doc_table).filter_by(id=doc_id).first()  
+     return result.doc_summary
 
 def content_from_id(doc_id):
     doc = db.session.query(doc_table).filter_by(id=doc_id).first()
@@ -19,10 +22,14 @@ def content_from_id(doc_id):
     return content
 
 
-def find_summary(doc_id):
-    content = content_from_id(doc_id)
+def find_summary(doc_link):
+    content = sp.get_content(doc_link)
     summary  = lp.summarize(content)
     return summary
+
+def find_all_summary():
+    for document in DOCUMENT_LIST:
+        document['doc_summary'] = find_summary(document['doc_link'])
 
 def find_entities(doc_id):
     entity_rows = db.session.query(entity_table).filter_by(doc_id=doc_id).all()    
@@ -41,12 +48,13 @@ def scrape(last_inserted_time):
    DOCUMENT_LIST = sp.scrape_rss(rss_list,last_inserted_time)
    
 
-def insert_doc_table():    
+def insert_doc_table(): 
+    global DOCUMENT_LIST   
+    
     for document in DOCUMENT_LIST:
         db.session.execute(doc_table.__table__.insert().prefix_with('IGNORE').values(document))
     db.session.commit()
-    return True
-        
+    
 
 def fetch_news():
     result =  doc_table.query.all()
@@ -81,5 +89,7 @@ last_inserted_time = check_last_insert()
 scrape(last_inserted_time)
 
 if DOCUMENT_LIST:
+    find_all_summary()
     insert_doc_table()
     extract_entities()
+    

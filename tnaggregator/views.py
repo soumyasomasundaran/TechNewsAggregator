@@ -22,7 +22,7 @@ def index():
 @login_required
 def summary():
     doc_id= request.args.get('doc_id')
-    summary = tn.find_summary(doc_id)
+    summary = tn.fetch_summary(doc_id)
     return render_template('summary.html',summary = summary,user = current_user)
 
 
