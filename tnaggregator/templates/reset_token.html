@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %}Reset Password{% endblock %}
+
+
+{% block content%}
+    <form method = "POST" action="{url_for('auth.reset_password')}">
+        <h3 align = "center">
+            Set password for {{user.username}}
+        </h3>
+        <div class ="form-group" >
+            <label for= "password">Password</label>
+            <input type="password" name="password"  id="password" placeholder="Enter password" class = "form-control">
+            <label for= "confirm_password">Confirm Password</label>
+            <input type="password" name="confirm_password"  id="confirm_password" placeholder="Enter password" class = "form-control">
+            <input type="hidden"  value={{user.id}}  name="user" class = "form-control">
+
+            <div  align="center">
+                <button class="btn btn-primary" type="submit">Reset</button>
+              </div>
+        </div>
+    </form>
+
+    {% endblock %}

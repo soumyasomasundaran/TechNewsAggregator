@@ -1,6 +1,7 @@
-from os import EX_TEMPFAIL
 from . import db
 from flask_login import UserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from . import app
 
 class doc_table(db.Model):
     __tabel__ ='doc_table'
@@ -45,9 +46,7 @@ class user_table(db.Model,UserMixin):
     def __init__(self,username,email,password):
         self.username = username
         self.email = email
-        self.password = password
-        
-        
+        self.password = password        
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -59,8 +58,18 @@ class user_table(db.Model,UserMixin):
     is_admin = db.Column(db.Boolean, default = False)
     __table_args__ = (db.UniqueConstraint(username, email, name='uix_2'),)
 
-    
+    def get_reset_token(self,expires_sec=1800):
+        s = Serializer(app.config['SECRET_KEY'],expires_sec)
+        return s.dumps({'user_id':self.id}).decode('utf-8')
 
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token)['user_id']
+        except:
+            return None
+        return user_table.query.get(user_id)
 
 class rss_table(db.Model):
     def __init__(self,rss_id,rss):
