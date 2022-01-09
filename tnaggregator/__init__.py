@@ -24,8 +24,8 @@ admin.init_app(app)
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'aggregatortn@gmail.com'
-app.config['MAIL_PASSWORD'] = 'Minimum@15'
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 mail = Mail(app)
 
 from .admin_login import administrator
