@@ -30,7 +30,7 @@ pathspec==0.9.0
 pathy==0.6.1
 platformdirs==2.4.1
 preshed==3.0.6
-protobuf==3.19.1
+protobuf==3.19.15
 pydantic==1.8.2
 PyMySQL==1.1.1
 pyparsing==3.0.6
