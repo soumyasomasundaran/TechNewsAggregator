@@ -31,7 +31,7 @@ pathy==0.6.1
 platformdirs==2.4.1
 preshed==3.0.6
 protobuf==3.19.15
-pydantic==1.8.2
+pydantic==1.10.13
 PyMySQL==1.1.1
 pyparsing==3.0.6
 python-dateutil==2.8.2
