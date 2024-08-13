@@ -19,7 +19,7 @@ idna==3.7
 itsdangerous==2.0.1
 Jinja2==3.1.4
 langcodes==3.3.0
-lxml==4.7.1
+lxml==4.9.1
 MarkupSafe==2.0.1
 murmurhash==1.0.6
 mypy-extensions==0.4.3
