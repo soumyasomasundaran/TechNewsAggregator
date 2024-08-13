@@ -15,7 +15,7 @@ Flask-Mail==0.9.1
 Flask-SQLAlchemy==2.5.1
 greenlet==1.1.2
 gunicorn==22.0.0
-idna==3.3
+idna==3.7
 itsdangerous==2.0.1
 Jinja2==3.1.4
 langcodes==3.3.0
